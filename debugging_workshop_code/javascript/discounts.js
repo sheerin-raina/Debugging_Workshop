@@ -10,11 +10,11 @@ function couponDiscountAmount(couponCode, subtotal) {
   const code = couponCode.toUpperCase();
 
   if (code === "SAVE10") {
-    return 10;
+    return subtotal * 0.10; // Was previously returning integer 10, updated to find actual 10% discount
   }
 
   if (code === "FIVEOFF") {
-    return subtotal * 0.05;
+    return subtotal - 5; // Updated to subtract 5 instead of take 5% off
   }
 
   return 0;

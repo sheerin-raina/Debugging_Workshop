@@ -38,10 +38,14 @@ function validateOrder(order, products, customers) {
       continue;
     }
 
-    if (typeof item.quantity !== "number") {
+    if (!Number.isInteger(item.quantity)) {
       errors.push(`Invalid quantity for ${product.name}`);
-    } else if (item.quantity < 0) {
+      continue;
+    }
+
+    if (item.quantity <= 0) {
       errors.push(`Quantity must be positive for ${product.name}`);
+      continue;
     }
 
     if (item.quantity && product.stock < 1) {

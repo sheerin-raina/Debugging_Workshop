@@ -48,7 +48,7 @@ function validateOrder(order, products, customers) {
       continue;
     }
 
-    if (item.quantity && product.stock < 1) {
+    if (product.stock < item.quantity) {
       errors.push(`Not enough inventory for ${product.name}`);
     }
   }

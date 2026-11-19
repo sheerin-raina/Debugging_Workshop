@@ -1,6 +1,19 @@
-function findProductByName(products, name) {
-  return products.find(product => product.name.toLowerCase() === name);
-}
+
+  // ROOT CAUSE 1:
+  // Product names were lowercased, but search input was not.
+  // FIX: Normalize both strings before comparing them.
+  // This allows searches like "MOUSE" and "  keyboard ".
+
+  function findProductByName(products, name) {
+    if (typeof name !== "string") return undefined;
+
+    const normalizedName = name.trim().toLowerCase();
+
+    return products.find(
+      product => product.name.trim().toLowerCase() === normalizedName
+    );
+  }
+  
 
 function lowStockProducts(products, threshold = 5) {
   return products.filter(product => product.stock < threshold && product.stock > 0);

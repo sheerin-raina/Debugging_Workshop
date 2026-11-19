@@ -14,10 +14,18 @@
     );
   }
   
+  
+  // ROOT CAUSE 2: Incorrect low-stock boundary conditions
+  // Problem: stock < threshold && stock > 0 excluded out-of-stock products
+  // and products with stock exactly equal to the threshold.
+  // Fix: Use stock <= threshold to include both boundary cases.
+  // Expected: At threshold 5, Pen Pack (0), Yoga Mat (2), and Mouse (4)
+  // are included. A product with exactly 5 units is also included.
 
-function lowStockProducts(products, threshold = 5) {
-  return products.filter(product => product.stock < threshold && product.stock > 0);
-}
+  function lowStockProducts(products, threshold = 5) {
+    return products.filter(product => product.stock <= threshold);
+  }
+  
 
 function productsSortedByPrice(products) {
   products.sort((a, b) => a.stock - b.stock);

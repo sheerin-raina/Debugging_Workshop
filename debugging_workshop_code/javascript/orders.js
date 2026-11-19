@@ -32,6 +32,15 @@ function processOrder(order, products, customers, taxRates) {
   const customer = findCustomerById(customers, order.customerId);
   const errors = validateOrder(order, products, customers);
 
+  if (errors.length > 0) {
+    return {
+      orderId: order.id,
+      customer: customer ? customer.name : "UNKNOWN",
+      valid: false,
+      errors
+    };
+  }
+
   const subtotal = calculateSubtotal(order, products);
   const discounts = applyDiscounts(order, customer, products, subtotal);
   const tax = calculateTax(customer, subtotal, taxRates);

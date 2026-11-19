@@ -77,11 +77,4 @@ module.exports = {
 };
 
 
-module.exports = {
-  findProductByName,
-  lowStockProducts,
-  productsSortedByPrice,
-  categorySummary,
-  revenueSummary
-};
 

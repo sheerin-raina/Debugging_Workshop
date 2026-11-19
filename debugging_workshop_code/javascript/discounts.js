@@ -27,7 +27,8 @@ function bulkDiscountAmount(items, products) {
     const product = products.find(p => p.id === item.productId);
     if (!product) continue;
 
-    if (item.quantity > BULK_DISCOUNT_THRESHOLD) {
+    // previously was '>', did not include the bulk discount threshold only greater. Resolved.
+    if (item.quantity >= BULK_DISCOUNT_THRESHOLD) {
       const lineTotal = product.price * item.quantity;
       discount += lineTotal * BULK_DISCOUNT_RATE;
     }

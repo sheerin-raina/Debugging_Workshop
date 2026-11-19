@@ -48,7 +48,10 @@ function applyDiscounts(order, customer, products, subtotal) {
   const loyaltyDiscount = loyaltyDiscountAmount(customer, subtotal);
   const bulkDiscount = bulkDiscountAmount(order.items || [], products);
 
-  const discountedSubtotal = subtotalAfterCoupon - loyaltyDiscount - bulkDiscount;
+  //discount was previously able to go into negatives. Now, minimum is 0
+  //Math.max picks up the greater value between 0 and the subtraction formula.
+  //Math.max makes the floor 0, cannot go under 0 even if subtraction formula falls into negatives
+  const discountedSubtotal = Math.max(0, subtotalAfterCoupon - loyaltyDiscount - bulkDiscount);
 
   return {
     couponDiscount: Number(couponDiscount.toFixed(2)),
